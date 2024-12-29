@@ -10,7 +10,7 @@ we got total of 19 channel that consist of:
 - 4 channel of potentiometer on a joystick.
 - left Joystick = Lx, Ly  -  Right Joystick = Rx, Ry
 
-# Faturing a 1,3" SH1106 OLED Display with features:
+# Featuring a 1,3" SH1106 OLED Display with features:
 - Battery Voltage Indicator.
 - All Button State Monitoring.
 - Joystick Position Monitoring. (With Visual Position)
