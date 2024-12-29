@@ -1,15 +1,16 @@
 # KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
 DS2 controller that's been hijacked with ESP32 and ESP-NOW communication Protocol
 
-# So essentially the DS2 controller just used for the button contacts and the housing.
-we've soldeered the switch contact and connecting those to esp32's pin.
+# DS2 controller just used for the button contacts and the housing.
+so essentially its a DS2 controller but with 'some' mod
+we've soldered the switch contact and connecting those to esp32's pin.
 we got total of 19 channel that consist of:
 - 15 Channel of switch. (Momentary) (SW15 is a toggle switch) 
 - "L3", "R3", "L2", "L1", "UP", "LEFT", "DOWN", "RIGHT", "SQUARE", "CROSS", "ROUND", "TRIANGLE", "R2", "R1", SW
 - 4 channel of potentiometer on a joystick.
 - left Joystick = Lx, Ly  -  Right Joystick = Rx, Ry
 
-# A 1,3" SH1106 OLED Dislay also used to monitor the remote variable, with feature:
+# Faturing a 1,3" SH1106 OLED Display with features:
 - Battery Voltage Indicator.
 - All Button State Monitoring.
 - Joystick Position Monitoring. (With Visual Position)
@@ -24,4 +25,4 @@ we got total of 19 channel that consist of:
 - All data is sent at the same time, Avoid Data Loss, Multitasking Compatible.
 - 3 Dbi external Antenna, increase Transmit Range. (Tested +- 115 meters of range, Not Line Of Sight, Building and Tree Obstacle)
 - Integrated 2s LiPo battery.
-- NEAT EXECUTION, NO "paksa N paksa". All conponents is placed inside. like nothing happened :)
+- NEAT EXECUTION, NO 'paksa N paksa'. All conponents is placed inside. like nothing happened :)
