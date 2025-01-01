@@ -1,6 +1,9 @@
 # KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
 DS2 controller that's been hijacked with ESP32 and ESP-NOW communication Protocol
 
+# documentation:
+Google Drive https://drive.google.com/drive/u/0/folders/1bF-S8_3wirRWgxVvsVIZeP3gbsoaI8Ss
+
 # DS2 controller just used for the button contacts and the housing.
 so essentially its a DS2 controller but with 'some' mod
 we've soldered the switch contact and connecting those to esp32's pin.
