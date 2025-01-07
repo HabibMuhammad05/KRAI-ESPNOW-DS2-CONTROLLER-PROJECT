@@ -3,14 +3,15 @@
 //RIGHT = UP(-1754) DOWN(2341) RIGHT(2329) LEFT(-1766)
 //[0]LX, [1]LY, [2]RX, [3]RY
 
+
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
 uint8_t pwm1 = 2;
 
 //idc 2 connector, FRONT RIGHT
-uint8_t FR_A = 45;
-uint8_t FR_B = 43;
+uint8_t FR_A = 43;
+uint8_t FR_B = 45;
 uint8_t pwm2 = 3;
 
 //idc 3 connector, REAR LEFT
@@ -19,8 +20,8 @@ uint8_t RL_B = 39;
 uint8_t pwm3 = 4;
 
 //idc 4 connector, REAR RIGHT
-uint8_t RR_A = 37;
-uint8_t RR_B = 35;
+uint8_t RR_A = 35;
+uint8_t RR_B = 37;
 uint8_t pwm4 = 5;
 
 int joystickX1, joystickY1, joystickX2;
@@ -105,10 +106,10 @@ void calcMecanum() {
   currentSpeedRR += constrain(targetRR - currentSpeedRR, -speedRamp, speedRamp);
 
   
-  int pwmFL = abs(currentSpeedFL * 255); // Map to PWM (0-255) and determine direction
-  int pwmFR = abs(currentSpeedFR * 255);
-  int pwmRL = abs(currentSpeedRL * 255);
-  int pwmRR = abs(currentSpeedRR * 255);
+  int pwmFL = abs(currentSpeedFL * 60); // Map to PWM (0-255) and determine direction
+  int pwmFR = abs(currentSpeedFR * 60);
+  int pwmRL = abs(currentSpeedRL * 60);
+  int pwmRR = abs(currentSpeedRR * 60);
 
   
   controlMotor(FL_A, FL_B, pwm1, currentSpeedFL > 0, pwmFL); // Control IBT motor driver
