@@ -1,7 +1,12 @@
+
+//button[15] = {33,   18,   16,   17,   4,     15,     13,     12,       25,      26,      27,        14,      19,   23,  2}; 
+            // "L3", "R3", "L2", "L1", "UP", "LEFT", "DOWN", "RIGHT", "SQUARE", "CROSS", "ROUND", "TRIANGLE", "R2", "R1", SW
+            //   0    1     2     3     4       5       6       7         8         9       10        11       12    13   14
+
 #include <Arduino.h>
 
 typedef struct struct_message {
-    bool stat[15];
+    bool stat[15] = {true};
     int joyData[4];
 } struct_message;
 

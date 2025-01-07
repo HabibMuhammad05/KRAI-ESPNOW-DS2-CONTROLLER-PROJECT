@@ -23,12 +23,15 @@
 void setup() {
   recvStart();
   mecanumSetup();
+  stopMotor();
 }
 
 void loop(){
   checkData();
   delay(20);
-  if(!recvData.stat[4]){ forward(); }
+  if(!recvData.stat[0]){ stopMotor(); }
+  else if(!recvData.stat[3]){ counterClockwise(); }
+  else if(!recvData.stat[4]){ forward(); }
   else if(!recvData.stat[6]){ backward(); }
   else if(!recvData.stat[5]){ left(); }
   else if(!recvData.stat[7]){ right(); }
@@ -36,5 +39,6 @@ void loop(){
   else if(!recvData.stat[11]){ forwardRight(); }
   else if(!recvData.stat[9]){ backwardLeft(); }
   else if(!recvData.stat[10]){ backwardRight(); }
+  else if(!recvData.stat[13]){ clockwise(); }
   else{ stopMotor(); }
 }

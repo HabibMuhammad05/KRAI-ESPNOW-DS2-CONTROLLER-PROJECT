@@ -1,11 +1,12 @@
+
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
 uint8_t pwm1 = 2;
 
 //idc 2 connector, FRONT RIGHT
-uint8_t FR_A = 45;
-uint8_t FR_B = 43;
+uint8_t FR_A = 43;
+uint8_t FR_B = 45;
 uint8_t pwm2 = 3;
 
 //idc 3 connector, REAR LEFT
@@ -14,11 +15,11 @@ uint8_t RL_B = 39;
 uint8_t pwm3 = 4;
 
 //idc 4 connector, REAR RIGHT
-uint8_t RR_A = 37;
-uint8_t RR_B = 35;
+uint8_t RR_A = 35;
+uint8_t RR_B = 37;
 uint8_t pwm4 = 5;
 
-uint8_t pwmVal = 75;
+uint8_t pwmVal = 60;
 
 void mecanumSetup(){
   pinMode(pwm1, OUTPUT);
@@ -42,14 +43,14 @@ void forward() {
   digitalWrite(FL_A, HIGH);
   digitalWrite(FL_B, LOW);
   analogWrite(pwm2, pwmVal);
-  digitalWrite(FR_A, LOW);
-  digitalWrite(FR_B, HIGH);
+  digitalWrite(FR_A, HIGH);
+  digitalWrite(FR_B, LOW);
   analogWrite(pwm3, pwmVal);
   digitalWrite(RL_A, HIGH);
   digitalWrite(RL_B, LOW);
   analogWrite(pwm4, pwmVal);
-  digitalWrite(RR_A, LOW);
-  digitalWrite(RR_B, HIGH);
+  digitalWrite(RR_A, HIGH);
+  digitalWrite(RR_B, LOW);
 }
 
 void backward() {
@@ -58,14 +59,14 @@ void backward() {
   digitalWrite(FL_A, LOW);
   digitalWrite(FL_B, HIGH);
   analogWrite(pwm2, pwmVal);
-  digitalWrite(FR_A, HIGH);
-  digitalWrite(FR_B, LOW);
+  digitalWrite(FR_A, LOW);
+  digitalWrite(FR_B, HIGH);
   analogWrite(pwm3, pwmVal);
   digitalWrite(RL_A, LOW);
   digitalWrite(RL_B, HIGH);
   analogWrite(pwm4, pwmVal);
-  digitalWrite(RR_A, HIGH);
-  digitalWrite(RR_B, LOW);
+  digitalWrite(RR_A, LOW);
+  digitalWrite(RR_B, HIGH);
 }
 
 void left() {
@@ -74,14 +75,14 @@ void left() {
   digitalWrite(FL_A, LOW);
   digitalWrite(FL_B, HIGH);
   analogWrite(pwm2, pwmVal);
-  digitalWrite(FR_A, LOW);
-  digitalWrite(FR_B, HIGH);
+  digitalWrite(FR_A, HIGH);
+  digitalWrite(FR_B, LOW);
   analogWrite(pwm3, pwmVal);
   digitalWrite(RL_A, HIGH);
   digitalWrite(RL_B, LOW);
   analogWrite(pwm4, pwmVal);
-  digitalWrite(RR_A, HIGH);
-  digitalWrite(RR_B, LOW);
+  digitalWrite(RR_A, LOW);
+  digitalWrite(RR_B, HIGH);
 }
 
 void right() {
@@ -90,56 +91,8 @@ void right() {
   digitalWrite(FL_A, HIGH);
   digitalWrite(FL_B, LOW);
   analogWrite(pwm2, pwmVal);
-  digitalWrite(FR_A, HIGH);
-  digitalWrite(FR_B, LOW);
-  analogWrite(pwm3, pwmVal);
-  digitalWrite(RL_A, HIGH);
-  digitalWrite(RL_B, LOW);
-  analogWrite(pwm4, pwmVal);
-  digitalWrite(RR_A, LOW);
-  digitalWrite(RR_B, HIGH);
-}
-
-void forwardLeft() {
-  DEBUG_PRINTLN("Moving Forward Left");
-  analogWrite(pwm1, pwmVal);
-  digitalWrite(FL_A, LOW);
-  digitalWrite(FL_B, HIGH);
-  analogWrite(pwm2, pwmVal);
   digitalWrite(FR_A, LOW);
   digitalWrite(FR_B, HIGH);
-  analogWrite(pwm3, pwmVal);
-  digitalWrite(RL_A, LOW);
-  digitalWrite(RL_B, HIGH);
-  analogWrite(pwm4, pwmVal);
-  digitalWrite(RR_A, LOW);
-  digitalWrite(RR_B, HIGH);
-}
-
-void forwardRight() {
-  DEBUG_PRINTLN("Moving Forward Right");
-  analogWrite(pwm1, pwmVal);
-  digitalWrite(FL_A, HIGH);
-  digitalWrite(FL_B, LOW);
-  analogWrite(pwm2, pwmVal);
-  digitalWrite(FR_A, HIGH);
-  digitalWrite(FR_B, LOW);
-  analogWrite(pwm3, pwmVal);
-  digitalWrite(RL_A, HIGH);
-  digitalWrite(RL_B, LOW);
-  analogWrite(pwm4, pwmVal);
-  digitalWrite(RR_A, LOW);
-  digitalWrite(RR_B, HIGH);
-}
-
-void backwardLeft() {
-  DEBUG_PRINTLN("Moving Backward Left");
-  analogWrite(pwm1, pwmVal);
-  digitalWrite(FL_A, LOW);
-  digitalWrite(FL_B, HIGH);
-  analogWrite(pwm2, pwmVal);
-  digitalWrite(FR_A, HIGH);
-  digitalWrite(FR_B, LOW);
   analogWrite(pwm3, pwmVal);
   digitalWrite(RL_A, LOW);
   digitalWrite(RL_B, HIGH);
@@ -148,10 +101,10 @@ void backwardLeft() {
   digitalWrite(RR_B, LOW);
 }
 
-void backwardRight() {
-  DEBUG_PRINTLN("Moving Backward Right");
-  analogWrite(pwm1, pwmVal);
-  digitalWrite(FL_A, HIGH);
+void forwardLeft() {
+  DEBUG_PRINTLN("Moving Forward Left");
+  analogWrite(pwm1, 0);
+  digitalWrite(FL_A, LOW);
   digitalWrite(FL_B, LOW);
   analogWrite(pwm2, pwmVal);
   digitalWrite(FR_A, HIGH);
@@ -159,6 +112,86 @@ void backwardRight() {
   analogWrite(pwm3, pwmVal);
   digitalWrite(RL_A, HIGH);
   digitalWrite(RL_B, LOW);
+  analogWrite(pwm4, 0);
+  digitalWrite(RR_A, LOW);
+  digitalWrite(RR_B, LOW);
+}
+
+void forwardRight() {
+  DEBUG_PRINTLN("Moving Forward Right");
+  analogWrite(pwm1, pwmVal);
+  digitalWrite(FL_A, HIGH);
+  digitalWrite(FL_B, LOW);
+  analogWrite(pwm2, 0);
+  digitalWrite(FR_A, LOW);
+  digitalWrite(FR_B, LOW);
+  analogWrite(pwm3, 0);
+  digitalWrite(RL_A, LOW);
+  digitalWrite(RL_B, LOW);
+  analogWrite(pwm4, pwmVal);
+  digitalWrite(RR_A, HIGH);
+  digitalWrite(RR_B, LOW);
+}
+
+void backwardLeft() {
+  DEBUG_PRINTLN("Moving Backward Left");
+  analogWrite(pwm1, pwmVal);
+  digitalWrite(FL_A, LOW);
+  digitalWrite(FL_B, HIGH);
+  analogWrite(pwm2, 0);
+  digitalWrite(FR_A, LOW);
+  digitalWrite(FR_B, LOW);
+  analogWrite(pwm3, 0);
+  digitalWrite(RL_A, LOW);
+  digitalWrite(RL_B, LOW);
+  analogWrite(pwm4, pwmVal);
+  digitalWrite(RR_A, LOW);
+  digitalWrite(RR_B, HIGH);
+}
+
+void backwardRight() {
+  DEBUG_PRINTLN("Moving Backward Right");
+  analogWrite(pwm1, 0);
+  digitalWrite(FL_A, LOW);
+  digitalWrite(FL_B, LOW);
+  analogWrite(pwm2, pwmVal);
+  digitalWrite(FR_A, LOW);
+  digitalWrite(FR_B, HIGH);
+  analogWrite(pwm3, pwmVal);
+  digitalWrite(RL_A, LOW);
+  digitalWrite(RL_B, HIGH);
+  analogWrite(pwm4, 0);
+  digitalWrite(RR_A, LOW);
+  digitalWrite(RR_B, LOW);
+}
+
+void clockwise(){
+  DEBUG_PRINTLN("Moving Clockwise");
+  analogWrite(pwm1, pwmVal);
+  digitalWrite(FL_A, HIGH);
+  digitalWrite(FL_B, LOW);
+  analogWrite(pwm2, pwmVal);
+  digitalWrite(FR_A, LOW);
+  digitalWrite(FR_B, HIGH);
+  analogWrite(pwm3, pwmVal);
+  digitalWrite(RL_A, HIGH);
+  digitalWrite(RL_B, LOW);
+  analogWrite(pwm4, pwmVal);
+  digitalWrite(RR_A, LOW);
+  digitalWrite(RR_B, HIGH);
+}
+
+void counterClockwise(){
+  DEBUG_PRINTLN("Moving Counter Clocwise");
+  analogWrite(pwm1, pwmVal);
+  digitalWrite(FL_A, LOW);
+  digitalWrite(FL_B, HIGH);
+  analogWrite(pwm2, pwmVal);
+  digitalWrite(FR_A, HIGH);
+  digitalWrite(FR_B, LOW);
+  analogWrite(pwm3, pwmVal);
+  digitalWrite(RL_A, LOW);
+  digitalWrite(RL_B, HIGH);
   analogWrite(pwm4, pwmVal);
   digitalWrite(RR_A, HIGH);
   digitalWrite(RR_B, LOW);
