@@ -200,8 +200,8 @@ void dispSplashLogo(){
   u8g2.drawStr(105, 8, "V3.4");
   u8g2.drawXBMP(0, 0, 128, 64, polinesLogo);
   u8g2.sendBuffer();
-  delay(3000);
-  for (int i = 0; i <= 100; i = i + 5) {
+  delay(1500);
+  for (int i = 0; i <= 100; i = i + 7) {
     u8g2.clearBuffer();
     u8g2.drawXBMP(0, 0, 128, 45, polinesLogo);
     u8g2.drawRFrame(10, 48, 108, 14, 3);

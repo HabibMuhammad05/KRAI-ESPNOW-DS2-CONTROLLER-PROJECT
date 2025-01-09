@@ -60,7 +60,7 @@ void loop() {
     joystickRead();
     OledDisplaySend();
     ledBlink(1000);
-    delay(12);
+    delay(10);
   }
   batteryCheck();
 }
