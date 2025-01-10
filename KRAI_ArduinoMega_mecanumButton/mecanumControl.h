@@ -2,12 +2,12 @@
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
-uint8_t pwm1 = 2;
+uint8_t pwm1 = 2; //6
 
 //idc 2 connector, FRONT RIGHT
 uint8_t FR_A = 43;
 uint8_t FR_B = 45;
-uint8_t pwm2 = 3;
+uint8_t pwm2 = 3; //7
 
 //idc 3 connector, REAR LEFT
 uint8_t RL_A = 41;
