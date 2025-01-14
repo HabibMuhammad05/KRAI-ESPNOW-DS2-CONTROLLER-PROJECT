@@ -1,13 +1,13 @@
-
+//======================================= MOTOR DRIVER PINS =======================================//
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
-uint8_t pwm1 = 2; //6
+uint8_t pwm1 = 8;
 
 //idc 2 connector, FRONT RIGHT
 uint8_t FR_A = 43;
 uint8_t FR_B = 45;
-uint8_t pwm2 = 3; //7
+uint8_t pwm2 = 9;
 
 //idc 3 connector, REAR LEFT
 uint8_t RL_A = 41;
@@ -21,6 +21,8 @@ uint8_t pwm4 = 5;
 
 uint8_t pwmVal = 60;
 
+
+//===================================driver motor declaration=====================================//
 void mecanumSetup(){
   pinMode(pwm1, OUTPUT);
   pinMode(FL_A, OUTPUT);
@@ -37,6 +39,8 @@ void mecanumSetup(){
   DEBUG_PRINTLN("Mecanum Ready");
 }
 
+
+//===============================Mecanum Wheel Simple Kinematics==================================//
 void forward() {
   DEBUG_PRINTLN("Moving Forward");
   analogWrite(pwm1, pwmVal);

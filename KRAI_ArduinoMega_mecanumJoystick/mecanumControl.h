@@ -1,18 +1,18 @@
-
 //LEFT = UP(-1742) DOWN(2353) RIGHT(2242) LEFT(-1853)
 //RIGHT = UP(-1754) DOWN(2341) RIGHT(2329) LEFT(-1766)
 //[0]LX, [1]LY, [2]RX, [3]RY
 
 
+//======================================= MOTOR DRIVER PINS =======================================//
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
-uint8_t pwm1 = 2;
+uint8_t pwm1 = 8;
 
 //idc 2 connector, FRONT RIGHT
 uint8_t FR_A = 43;
 uint8_t FR_B = 45;
-uint8_t pwm2 = 3;
+uint8_t pwm2 = 9;
 
 //idc 3 connector, REAR LEFT
 uint8_t RL_A = 41;
@@ -24,11 +24,15 @@ uint8_t RR_A = 35;
 uint8_t RR_B = 37;
 uint8_t pwm4 = 5;
 
+
+//============================ MECANUM KINEMATICS CALCULATION VARIABLES ==========================//
 int joystickX1, joystickY1, joystickX2;
 float currentSpeedFL = 0, currentSpeedFR = 0, currentSpeedRL = 0, currentSpeedRR = 0;
-float speedRamp = 0.05; // Smooth acceleration rate
+float speedRamp = 1; 
 
-void mecanumSetup() {
+
+//=================================== driver motor declaration =====================================//
+void mecanumSetup(){
   pinMode(pwm1, OUTPUT);
   pinMode(FL_A, OUTPUT);
   pinMode(FL_B, OUTPUT);
@@ -41,9 +45,9 @@ void mecanumSetup() {
   pinMode(pwm4, OUTPUT);
   pinMode(RR_A, OUTPUT);
   pinMode(RR_B, OUTPUT);
-  DEBUG_PRINTLN("Mecanum Ready");
 }
 
+//================================== JOYSTICK DATA CALCULATION =====================================//
 int mapJoystick(int input, int negFrom, int posFrom, int negTo, int posTo) {
     if (input > 0) {
         return map(input, 0, posFrom, 0, posTo);
@@ -54,6 +58,8 @@ int mapJoystick(int input, int negFrom, int posFrom, int negTo, int posTo) {
     }
 }
 
+
+//=================================== MOTOR DIRECTION CONTROL ======================================//
 void controlMotor(int pinA, int pinB, int pwmPin, bool isForward, int pwmValue) {
   if (isForward) {
     digitalWrite(pinA, HIGH);
@@ -65,6 +71,8 @@ void controlMotor(int pinA, int pinB, int pwmPin, bool isForward, int pwmValue) 
   analogWrite(pwmPin, pwmValue);
 }
 
+
+//============================ MECANUM WHEEL KINEMATICS CALCULATION=================================//
 void calcMecanum() { 
   int x1Map = mapJoystick(recvData.joyData[0], -1855, 2244, -255, 255);
   int y1Map = mapJoystick(recvData.joyData[1], -1744, 2355, -255, 255);

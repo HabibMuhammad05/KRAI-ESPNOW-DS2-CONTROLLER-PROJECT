@@ -1,10 +1,13 @@
 /*---------------------------------------------------------------------------------------------------------*/
 /*--------------------ARDUINO MEGA PARSING DATA FROM ESP32, MECANUM WHEEL WITH BUTTON----------------------*/
+/*-------------------INCLUDING INTERNAL ENCODER FEEDBACK WITH PID CLOSED LOOP FEEDBACK--------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------Source Code by LEXARGA-24 TEAM-------------------------------------*/
 /*-----------------------------------Modified & Adapted by LEXARGA-24 TEAM---------------------------------*/
-/*----------------------------------------------------V2.0-------------------------------------------------*/
+/*----------------------------------------------------V2.2-------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
-// Define DEBUG below to enable debugging, comment it out to disable
+
+// Define DEBUG to enable debugging; comment it out to disable
 //#define DEBUG
 
 #ifdef DEBUG
@@ -23,12 +26,13 @@
 void setup() {
   recvStart();
   mecanumSetup();
+  PIDSetup();
   stopMotor();
 }
 
 void loop(){
   checkData();
-  delay(20);
+  delay(10);
   if(!recvData.stat[0]){ stopMotor(); }
   else if(!recvData.stat[3]){ counterClockwise(); }
   else if(!recvData.stat[4]){ forward(); }

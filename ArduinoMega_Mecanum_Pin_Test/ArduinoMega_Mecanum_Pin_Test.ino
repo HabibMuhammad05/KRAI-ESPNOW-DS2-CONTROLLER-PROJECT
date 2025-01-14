@@ -14,12 +14,12 @@
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
-uint8_t pwm1 = 2;
+uint8_t pwm1 = 8;
 
 //idc 2 connector, FRONT RIGHT
 uint8_t FR_A = 43;
 uint8_t FR_B = 45;
-uint8_t pwm2 = 3;
+uint8_t pwm2 = 9;
 
 //idc 3 connector, REAR LEFT
 uint8_t RL_A = 41;
@@ -34,6 +34,7 @@ uint8_t pwm4 = 5;
 uint8_t pwmVal = 30;
 
 void setup() {
+  Serial.begin(115200);
   pinMode(pwm1, OUTPUT);
   pinMode(FL_A, OUTPUT);
   pinMode(FL_B, OUTPUT);
@@ -51,7 +52,7 @@ void setup() {
 
 void loop() {
 //  forward();
-//  backward();
+  backward();
 //  left();
 //  right();
 //  forwardLeft();
