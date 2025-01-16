@@ -29,3 +29,44 @@ we got total of 19 channel that consist of:
 - 3 Dbi external Antenna, increase Transmit Range. (Tested +- 115 meters of range, Not Line Of Sight, Building and Tree Obstacle)
 - Integrated 2s LiPo battery.
 - NEAT EXECUTION, NO 'paksa N paksa'. All conponents is placed inside. like nothing happened :)
+
+=============================================================================================================================================================================
+
+# Pergerakan base Kontroler DS2 - ESP32 RX - Arduino Mega - Roda Mekanum.
+- Hidupkan remote saklar dibelakang sebelah kanan (push button toggle)
+- auto connect ke receiver, status remote : Standby = RX hidup, namun belum ada data yang dikirimkan.
+											                      conn ok = RX hidup, sedang ada data yang dikirimkan. otomatis stop kirim data setelah 1 detik tombol tidak ditekan.
+											                      error   = RX mati / tidak bisa connect.
+- Status koneksi remote ada di layar sisi atas kiri.
+- Tegangan baterai ada di layar sisi atas kanan.
+- Baterai LiPo 2S, tegangan 8.4 - 7.2  USAHAKAN JIKA SUDAH DIBAWAH 7V LANGSUNG CHARGE. -IMAX MODE CHARGE (Arus 0.5A, 2S).
+
+# github program pergerakan base:
+https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
+
+# last fix update: 
+- **Remote** : KRAI_ESPNOW_Remote_V3.4_refreshRate_TX.ino
+   > https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT/tree/master/KRAI_ESPNOW_Remote_V3.4_refreshRate_TX
+   
+- **ESPNOW RX** : KRAI_ESPNOW_Remote_V3.3_SendToMega_RX.ino
+   > https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT/tree/master/KRAI_ESPNOW_Remote_V3.3_SendToMega_RX
+   
+- **Arduino Mega Mecanum Joystick** : KRAI_ArduinoMega_mecanumJoystick_PID_Controller.ino
+	 > https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT/tree/master/KRAI_ArduinoMega_mecanumJoystick_PID_Controller
+  
+- **Arduino Mega Mecanum button Control** : KRAI_ArduinoMega_mecanumButton_PID_Controller.ino
+	 > https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT/tree/master/KRAI_ArduinoMega_mecanumButton_PID_Controller
+  	
+		
+# Repository Percobaan motor PG45 dengan internal encoder + PID controller
+> https://github.com/HabibMuhammad05/PID-PG45-Motor-Encoder-Feedback
+
+Deskripsi tiap Sketch program:
+	- **Motor_With_Encoder.ino**  : Pembacaan pin A & B Internal Encoder motor, Output pulse untuk kontrol Motor.
+	   > https://github.com/HabibMuhammad05/PID-PG45-Motor-Encoder-Feedback/tree/master/Motor_With_Encoder.
+	- **MotorControl_RPM_Tuning.ino**  : PID 1 motor searah, Hanya CW.
+	   > https://github.com/HabibMuhammad05/PID-PG45-Motor-Encoder-Feedback/tree/master/MotorControl_RPM_Tuning
+	- **MotorControl_PID_DualDirection.ino**  : Perhitungan & tuning PID 1 motor support pergerakan 2 arah (CW & CCW).
+	   > https://github.com/HabibMuhammad05/PID-PG45-Motor-Encoder-Feedback/tree/master/MotorControl_PID_DualDirection
+	- **MotorControl_PID_MultiMotor.ino**  : Kontrol 4 motor support pergerakan 2 arah (CW&CCW), Perhitungan sendiri-sendiri per motor.
+	   > https://github.com/HabibMuhammad05/PID-PG45-Motor-Encoder-Feedback/tree/master/MotorControl_PID_MultiMotor
