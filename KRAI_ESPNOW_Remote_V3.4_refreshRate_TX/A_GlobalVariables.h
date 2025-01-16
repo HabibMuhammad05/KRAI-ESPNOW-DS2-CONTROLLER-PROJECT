@@ -52,6 +52,6 @@ const int centerThreshold = 45;
 uint8_t voltPin = 32; 
 float batteryVoltage, batteryPercentage;
 const float voltageDividerFactor = 47.0 / (100.0 + 47.0);
-const float calibrationFactor = 1.066; 
+const float calibrationFactor = 1.12; 
 const float minVoltage = 6.0; 
 const float maxVoltage = 8.4; 

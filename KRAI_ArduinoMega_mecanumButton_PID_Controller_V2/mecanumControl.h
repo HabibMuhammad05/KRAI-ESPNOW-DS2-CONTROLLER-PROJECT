@@ -44,7 +44,7 @@ float rpmMin = -120.0;                        //max CCW RPM for the motors
 uint8_t maxPWM = 200;                         //amount of max PWM sent to motor driver
     
 const int encoderPPR = 326;                   //PG45 = 17PPR @1:19.2 Ratio = 17x19.2 ~ 326
-const unsigned long sampleTime = 25;          //PID Calculation Interval
+const unsigned long sampleTime = 10;          //PID Calculation Interval
 const unsigned long debugInterval = 1000;     //Serial Print Debug interval, avoid excessive RAM&Overflow
 
 volatile long encoderCount[4] = {0, 0, 0, 0}; //num of Encoder
@@ -53,7 +53,7 @@ float targetRPM[4] = {0.0, 0.0, 0.0, 0.0};    //Target RPM as reference for PID
 float error[4] = {0.0, 0.0, 0.0, 0.0};        //PID - Proportional
 float lastError[4] = {0.0, 0.0, 0.0, 0.0};    //PID - Derivative
 float integral[4] = {0.0, 0.0, 0.0, 0.0};     //PID - Integral
-float Kp = 0.45, Ki = 0.8, Kd = 0.01;         //PID Times Factor
+float Kp = 0.6, Ki = 0.8, Kd = 0.01;         //PID Times Factor
 int motorPWM[4] = {0, 0, 0, 0};               //Amount of PWM sent to driver
 unsigned long lastTime[4] = {0, 0, 0, 0};     //store millis for calculation Interval
 unsigned long lastDebugTime = 0;              //store millis for Debug Interval
@@ -121,12 +121,16 @@ void calcPID(float target_FL, float target_FR, float target_RL, float target_RR)
   
       motorPWM[motorIndex] = Kp * error[motorIndex] + Ki * integral[motorIndex] + Kd * derivative;
   
-      if (motorPWM[motorIndex] > 0) {
+      if(targetRPM[motorIndex] == 0.0) {
+        analogWrite(motorPWM_Pin[motorIndex], 0);
+        digitalWrite(motorA[motorIndex], LOW);
+        digitalWrite(motorB[motorIndex], LOW);
+      }else if (motorPWM[motorIndex] > 0) {
         motorPWM[motorIndex] = constrain(motorPWM[motorIndex], 0, maxPWM);
         analogWrite(motorPWM_Pin[motorIndex], motorPWM[motorIndex]);
         digitalWrite(motorA[motorIndex], HIGH);
         digitalWrite(motorB[motorIndex], LOW);
-      } else {
+      }else {
         motorPWM[motorIndex] = constrain(abs(motorPWM[motorIndex]), 0, maxPWM);
         analogWrite(motorPWM_Pin[motorIndex], motorPWM[motorIndex]);
         digitalWrite(motorA[motorIndex], LOW);
@@ -163,52 +167,52 @@ void mecanumSetup(){
 //===============================Mecanum Wheel Simple Kinematics==================================//
 void forward() {
   DEBUG_PRINTLN("Moving Forward");
-  calcPID(pwmPlus,pwmPlus,pwmPlus,pwmPlus);
+  calcPID(rpmPlus,rpmPlus,rpmPlus,rpmPlus);
 }
 
 void backward() {
   DEBUG_PRINTLN("Moving Backward");  
-  calcPID(pwmMin,pwmMin,pwmMin,pwmMin);
+  calcPID(rpmMin,rpmMin,rpmMin,rpmMin);
 }
 
 void left() {
   DEBUG_PRINTLN("Turning Left");  
-  calcPID(pwmMin,pwmPlus,pwmPlus,pwmMin);
+  calcPID(rpmMin,rpmPlus,rpmPlus,rpmMin);
 }
 
 void right() {
   DEBUG_PRINTLN("Turning Right");  
-  calcPID(pwmPlus,pwmMin,pwmMin,pwmPlus);
+  calcPID(rpmPlus,rpmMin,rpmMin,rpmPlus);
 }
 
 void forwardLeft() {
   DEBUG_PRINTLN("Moving Forward Left");
-  calcPID(0.0,pwmPlus,pwmPlus,0.0);
+  calcPID(0.0,rpmPlus,rpmPlus,0.0);
 }
 
 void forwardRight() {
   DEBUG_PRINTLN("Moving Forward Right");  
-  calcPID(pwmPlus, 0.0, 0.0, pwmPlus);
+  calcPID(rpmPlus, 0.0, 0.0, rpmPlus);
 }
 
 void backwardLeft() {
   DEBUG_PRINTLN("Moving Backward Left");  
-  calcPID(pwmMin, 0.0, 0.0, pwmMin);
+  calcPID(rpmMin, 0.0, 0.0, rpmMin);
 }
 
 void backwardRight() {
   DEBUG_PRINTLN("Moving Backward Right");  
-  calcPID(0.0, pwmMin, pwmMin, 0.0);
+  calcPID(0.0, rpmMin, rpmMin, 0.0);
 }
 
 void clockwise(){
   DEBUG_PRINTLN("Moving Clockwise");  
-  calcPID(pwmPlus,pwmMin,pwmPlus,pwmMin);
+  calcPID(rpmPlus,rpmMin,rpmPlus,rpmMin);
 }
 
 void counterClockwise(){
   DEBUG_PRINTLN("Moving Counter Clocwise");  
-  calcPID(pwmMin,pwmPlus,pwmMin,pwmPlus);
+  calcPID(rpmMin,rpmPlus,rpmMin,rpmPlus);
 }
 
 void stopMotor(){

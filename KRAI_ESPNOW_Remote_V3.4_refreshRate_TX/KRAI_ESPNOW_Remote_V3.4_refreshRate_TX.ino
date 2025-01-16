@@ -4,6 +4,9 @@
 /*-----------------------------------Modified & Adapted by LEXARGA-24 TEAM---------------------------------*/
 /*---------------------------------------------------V3.4-------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+/*------------------------------------LAST UPDATE AT 09:30:00, 16 JAN 25-----------------------------------*/
+
 // Define DEBUG to enable debugging; comment it out to disable
 //#define DEBUG
 
@@ -39,7 +42,7 @@ void setup(){
   
   calibrateJoysticks();
   dispSplashLogo();
-  batteryCheck();
+//  batteryCheck();
   
   if (digitalRead(33)) { 
     settingMode = false; 
@@ -47,6 +50,7 @@ void setup(){
     OledDisplaySend();
   }else{
     settingMode = true;
+    batteryCheck();
     StartOTA();
     displaySetPage();
   }  
@@ -60,15 +64,15 @@ void loop() {
     joystickRead();
     OledDisplaySend();
     ledBlink(1000);
+    batteryCheck();
     delay(10);
   }
-  batteryCheck();
 }
 
 //===========================================Voltage reading FUNC===============================================//
 unsigned int readMillis = 0;
 void batteryCheck(){
-  if(millis() - readMillis>= 5000){
+  if((millis() - readMillis>= 5000) || settingMode){
     readMillis=millis();
     float vOut = (analogRead(voltPin) / 4095.0) * 3.3; 
     batteryVoltage = (vOut / voltageDividerFactor) * calibrationFactor;

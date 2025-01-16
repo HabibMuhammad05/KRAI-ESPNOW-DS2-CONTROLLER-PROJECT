@@ -6,7 +6,7 @@
 /*-----------------------------------Modified & Adapted by LEXARGA-24 TEAM---------------------------------*/
 /*----------------------------------------------------V2.1-------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
-/*------------------------------------LAST UPDATE AT 17:02:00, 14 JAN 25-----------------------------------*/
+/*------------------------------------LAST UPDATE AT 12:20:00, 15 JAN 25-----------------------------------*/
 
 // Define DEBUG to enable debugging; comment it out to disable
 //#define DEBUG
@@ -24,7 +24,16 @@
 #include "mecanumControl.h"
 #include "dataReadFunc.h"
 
+bool R2lastState = true;
+bool L2lastState = true;
+
+uint8_t relay1 = 30;
+uint8_t relay2 = 32;
+
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(relay1, OUTPUT);
+  pinMode(relay2, OUTPUT);
   recvStart();
   mecanumSetup();
   PIDSetup();
@@ -33,7 +42,7 @@ void setup() {
 
 void loop(){
   checkData();
-  delay(5);
+  delay(10);
   calcPID();
   if(!recvData.stat[0]){ stopMotor(); }
   else if(!recvData.stat[3]){ counterClockwise(); }
@@ -46,5 +55,23 @@ void loop(){
   else if(!recvData.stat[9]){ backwardLeft(); }
   else if(!recvData.stat[10]){ backwardRight(); }
   else if(!recvData.stat[13]){ clockwise(); }
-  else{ stopMotor(); }
+  else{stopMotor();}
+//  else if((((recvData.stat[0] || recvData.stat[1]) || (recvData.stat[2] || recvData.stat[3])) || 
+//     ((recvData.stat[4] || recvData.stat[5]) || (recvData.stat[6] || recvData.stat[7]))) || 
+//    (((recvData.stat[8] || recvData.stat[9]) || (recvData.stat[10] || recvData.stat[11])) || 
+//     ((recvData.stat[12] || recvData.stat[13]) || recvData.stat[14]))){ stopMotor(); }
+ 
+//=============================== turn on/off relay at D30 when R2 is pressed ===============================//
+  if (!recvData.stat[12] && R2lastState) {
+    digitalWrite(relay1, !digitalRead(relay1)); 
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); 
+  }
+  R2lastState = recvData.stat[12];
+  
+//=============================== turn on/off relay at D32 when R2 is pressed ===============================//
+  if (!recvData.stat[2] && L2lastState) { 
+    digitalWrite(relay2, !digitalRead(relay2));
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
+  L2lastState = recvData.stat[2];
 }

@@ -51,6 +51,8 @@ float speedRamp = 1;
 //================================== PID CALCULATION VARIABLES ===================================//
 uint8_t maxRPM = 200;
 
+uint8_t maxPWM = 200;
+
 const int encoderPPR = 326;                   //PG45 = 17PPR @1:19.2 Ratio = 17x19.2 ~ 326
 const unsigned long sampleTime = 25;          //PID Calculation Interval
 const unsigned long debugInterval = 1000;     //Serial Print Debug interval, avoid excessive RAM&Overflow
@@ -129,13 +131,17 @@ void calcPID(float target_FL, float target_FR, float target_RL, float target_RR)
   
       motorPWM[motorIndex] = Kp * error[motorIndex] + Ki * integral[motorIndex] + Kd * derivative;
   
-      if (motorPWM[motorIndex] > 0) {
-        motorPWM[motorIndex] = constrain(motorPWM[motorIndex], 0, 50);
+      if(targetRPM[motorIndex] == 0.0) {
+        analogWrite(motorPWM_Pin[motorIndex], 0);
+        digitalWrite(motorA[motorIndex], LOW);
+        digitalWrite(motorB[motorIndex], LOW);
+      }else if (motorPWM[motorIndex] > 0) {
+        motorPWM[motorIndex] = constrain(motorPWM[motorIndex], 0, maxPWM);
         analogWrite(motorPWM_Pin[motorIndex], motorPWM[motorIndex]);
         digitalWrite(motorA[motorIndex], HIGH);
         digitalWrite(motorB[motorIndex], LOW);
-      } else {
-        motorPWM[motorIndex] = constrain(abs(motorPWM[motorIndex]), 0, 50);
+      }else {
+        motorPWM[motorIndex] = constrain(abs(motorPWM[motorIndex]), 0, maxPWM);
         analogWrite(motorPWM_Pin[motorIndex], motorPWM[motorIndex]);
         digitalWrite(motorA[motorIndex], LOW);
         digitalWrite(motorB[motorIndex], HIGH);
@@ -179,9 +185,9 @@ int mapJoystick(int input, int negFrom, int posFrom, int negTo, int posTo) {
 
 //============================ MECANUM WHEEL KINEMATICS CALCULATION=================================//
 void calcMecanum() { 
-  int x1Map = mapJoystick(recvData.joyData[0], -1855, 2244, -255, 255);
+  int x1Map = mapJoystick(recvData.joyData[0], -1855, 2244, 255, -255);
   int y1Map = mapJoystick(recvData.joyData[1], -1744, 2355, -255, 255);
-  int x2Map = mapJoystick(recvData.joyData[2], -1743, 2331, -255, 255);
+  int x2Map = mapJoystick(recvData.joyData[2], -1743, 2331, 255, -255);
   
   joystickX1 = x1Map; // First joystick X-axis (left-right)
   joystickY1 = map(y1Map, -255, 255, 255, -255); // First joystick Y-axis (forward-backward)
@@ -232,9 +238,9 @@ void calcMecanum() {
     calcPID(rpmFL, rpmFR, rpmRL, rpmRR);
 //  }
 
-  DEBUG_PRINT("RPM FL: "); DEBUG_PRINT(pwmFL);
-  DEBUG_PRINT(" | FR: "); DEBUG_PRINT(pwmFR);
-  DEBUG_PRINT(" | RL: "); DEBUG_PRINT(pwmRL);
-  DEBUG_PRINT(" | RR: "); DEBUG_PRINTLN(pwmRR);
+  DEBUG_PRINT("RPM FL: "); DEBUG_PRINT(rpmFL);
+  DEBUG_PRINT(" | FR: "); DEBUG_PRINT(rpmFR);
+  DEBUG_PRINT(" | RL: "); DEBUG_PRINT(rpmRL);
+  DEBUG_PRINT(" | RR: "); DEBUG_PRINTLN(rpmRR);
 //  delay(50);
 }

@@ -6,10 +6,10 @@
 /*-----------------------------------Modified & Adapted by LEXARGA-24 TEAM---------------------------------*/
 /*----------------------------------------------------V3.1-------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
-/*------------------------------------LAST UPDATE AT 17:00:00, 14 JAN 25-----------------------------------*/
+/*------------------------------------LAST UPDATE AT 09:35:00, 16 JAN 25-----------------------------------*/
 
 // Define DEBUG to enable debugging; comment it out to disable
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
   #define DEBUG_PRINT(...) Serial.print(__VA_ARGS__)
@@ -24,7 +24,16 @@
 #include "dataReadFunc.h"
 #include "mecanumControl.h"
 
+bool R2lastState = true;
+bool L2lastState = true;
+
+uint8_t relay1 = 30;
+uint8_t relay2 = 32;
+
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(relay1, OUTPUT);
+  pinMode(relay2, OUTPUT);
   recvStart();
   PIDSetup();
   mecanumSetup();
@@ -34,4 +43,18 @@ void loop(){
   checkData();
   delay(30);
   calcMecanum();
+
+//=============================== turn on/off relay at D30 when R2 is pressed ===============================//
+  if (!recvData.stat[12] && R2lastState) {
+    digitalWrite(relay1, !digitalRead(relay1)); 
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); 
+  }
+  R2lastState = recvData.stat[12];
+  
+//=============================== turn on/off relay at D32 when R2 is pressed ===============================//
+  if (!recvData.stat[2] && L2lastState) { 
+    digitalWrite(relay2, !digitalRead(relay2));
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
+  L2lastState = recvData.stat[2];
 }

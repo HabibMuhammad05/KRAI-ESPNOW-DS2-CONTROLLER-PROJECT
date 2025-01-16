@@ -38,8 +38,8 @@ const int motorPWM_Pin[4] = {pwm1, pwm2, pwm3, pwm4}; //driver motor PWM pins as
 
 
 //================================== PID CALCULATION VARIABLES ===================================//
-float rpmPlus = 120.0;                        //max CW RPM for the motors
-float rpmMin = -120.0;                        //max CCW RPM for the motors
+float rpmPlus = 150.0;                        //max CW RPM for the motors
+float rpmMin = -150.0;                        //max CCW RPM for the motors
 
 uint8_t maxPWM = 200;                         //amount of max PWM sent to motor driver
     
@@ -114,13 +114,17 @@ void calcPID(){
       lastError[motorIndex] = error[motorIndex];
   
       motorPWM[motorIndex] = Kp * error[motorIndex] + Ki * integral[motorIndex] + Kd * derivative;
-  
-      if (motorPWM[motorIndex] > 0) {
+      
+      if(targetRPM[motorIndex] == 0.0) {
+        analogWrite(motorPWM_Pin[motorIndex], 0);
+        digitalWrite(motorA[motorIndex], LOW);
+        digitalWrite(motorB[motorIndex], LOW);
+      }else if (motorPWM[motorIndex] > 0) {
         motorPWM[motorIndex] = constrain(motorPWM[motorIndex], 0, maxPWM);
         analogWrite(motorPWM_Pin[motorIndex], motorPWM[motorIndex]);
         digitalWrite(motorA[motorIndex], HIGH);
         digitalWrite(motorB[motorIndex], LOW);
-      } else {
+      }else {
         motorPWM[motorIndex] = constrain(abs(motorPWM[motorIndex]), 0, maxPWM);
         analogWrite(motorPWM_Pin[motorIndex], motorPWM[motorIndex]);
         digitalWrite(motorA[motorIndex], LOW);

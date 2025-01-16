@@ -4,7 +4,7 @@
 /*-----------------------------------Modified & Adapted by LEXARGA-24 TEAM---------------------------------*/
 /*----------------------------------------------------V2.0-------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
-/*------------------------------------LAST UPDATE AT 17:02:00, 14 JAN 25-----------------------------------*/
+/*------------------------------------LAST UPDATE AT 09:40:00, 16 JAN 25-----------------------------------*/
 
 // Define DEBUG below to enable debugging, comment it out to disable
 //#define DEBUG
@@ -22,7 +22,16 @@
 #include "mecanumControl.h"
 #include "dataReadFunc.h"
 
+bool R2lastState = true;
+bool L2lastState = true;
+
+uint8_t relay1 = 30;
+uint8_t relay2 = 32;
+
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(relay1, OUTPUT);
+  pinMode(relay2, OUTPUT);
   recvStart();
   mecanumSetup();
   stopMotor();
@@ -43,4 +52,18 @@ void loop(){
   else if(!recvData.stat[10]){ backwardRight(); }
   else if(!recvData.stat[13]){ clockwise(); }
   else{ stopMotor(); }
+   
+//=============================== turn on/off relay at D30 when R2 is pressed ===============================//
+  if (!recvData.stat[12] && R2lastState) {
+    digitalWrite(relay1, !digitalRead(relay1)); 
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); 
+  }
+  R2lastState = recvData.stat[12];
+  
+//=============================== turn on/off relay at D32 when R2 is pressed ===============================//
+  if (!recvData.stat[2] && L2lastState) { 
+    digitalWrite(relay2, !digitalRead(relay2));
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
+  L2lastState = recvData.stat[2];
 }
