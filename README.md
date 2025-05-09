@@ -40,6 +40,7 @@ we got total of 19 channel that consist of:
 - Status koneksi remote ada di layar sisi atas kiri.
 - Tegangan baterai ada di layar sisi atas kanan.
 - Baterai LiPo 2S, tegangan 8.4 - 7.2  USAHAKAN JIKA SUDAH DIBAWAH 7V LANGSUNG CHARGE. -IMAX MODE CHARGE (Arus 0.5A, 2S).
+- Monitoring status semu tombol
 
 # github program pergerakan base:
 https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
