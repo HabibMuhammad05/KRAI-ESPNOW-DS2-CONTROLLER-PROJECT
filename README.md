@@ -28,7 +28,7 @@ we got total of 19 channel that consist of:
 - All data is sent at the same time, Avoid Data Loss, Multitasking Compatible.
 - 3 Dbi external Antenna, increase Transmit Range. (Tested +- 115 meters of range, Not Line Of Sight, Building and Tree Obstacle)
 - Integrated 2s LiPo battery.
-- NEAT EXECUTION, NO 'paksa N paksa'. All conponents is placed inside. like nothing happened :)
+- NEAT EXECUTION, NO 'paksa N paksa'. All components is placed inside. like nothing happened :)
 
 =============================================================================================================================================================================
 
@@ -40,7 +40,7 @@ we got total of 19 channel that consist of:
 - Status koneksi remote ada di layar sisi atas kiri.
 - Tegangan baterai ada di layar sisi atas kanan.
 - Baterai LiPo 2S, tegangan 8.4 - 7.2  USAHAKAN JIKA SUDAH DIBAWAH 7V LANGSUNG CHARGE. -IMAX MODE CHARGE (Arus 0.5A, 2S).
-- Monitoring status semu tombol
+- Monitoring status semua tombol.
 
 # github program pergerakan base:
 https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
