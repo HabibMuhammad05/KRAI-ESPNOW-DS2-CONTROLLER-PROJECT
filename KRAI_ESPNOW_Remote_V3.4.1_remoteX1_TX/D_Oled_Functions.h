@@ -138,7 +138,7 @@ void OledDisplaySend(){
     case 1 : u8g2.drawStr(1, 12, "STANDBY");break;
     case 2 : u8g2.drawStr(1, 12, "CONN OK");break;
   }
-  u8g2.drawStr(73, 12, "R2");                           // remote number
+  u8g2.drawStr(73, 12, "R1");                           // remote number
   String voltStr = String(batteryVoltage, 1);  
   u8g2.setFont(u8g2_font_5x7_tr);
   u8g2.drawStr(107, 10, voltStr.c_str());                       
@@ -188,7 +188,7 @@ void dispSplashLogo(){
   u8g2.setFontMode(1);
   u8g2.setBitmapMode(1);
   u8g2.setFont(u8g2_font_helvB08_tr);
-  u8g2.drawStr(97, 8, "V3.4.2");
+  u8g2.drawStr(98, 8, "V3.4.1");
   u8g2.drawXBMP(0, 0, 128, 64, polinesLogo);
   u8g2.sendBuffer();
   delay(1500);
@@ -207,13 +207,13 @@ void displaySetPage(){
   u8g2.setBitmapMode(1);
   u8g2.drawXBM(0, 0, 128, 64, settingScreen);
   u8g2.setFont(u8g2_font_t0_18b_tr);
-  u8g2.drawStr(73, 12, "R2");
+  u8g2.drawStr(73, 12, "R1");
   String voltStr = String(batteryVoltage, 1);  
   u8g2.setFont(u8g2_font_5x7_tr);
   u8g2.drawStr(107, 10, voltStr.c_str());                       
   u8g2.drawStr(123, 10, "V");   
   u8g2.setFont(u8g2_font_t0_11b_tr);
-  u8g2.drawStr(5, 28, "SSID:SETUP_REMOTE_2");
+  u8g2.drawStr(5, 28, "SSID:SETUP_REMOTE_1");
   u8g2.setFont(u8g2_font_t0_13b_tr);
   u8g2.drawStr(59, 45, "LEXARGA24");
   u8g2.sendBuffer();

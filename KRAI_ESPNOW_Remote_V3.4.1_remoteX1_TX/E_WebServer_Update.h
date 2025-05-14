@@ -101,7 +101,7 @@ const char webHTML[] PROGMEM = R"rawliteral(
 
 
 void StartOTA(){
-  WiFi.softAP("SETUP_REMOTE_2", "LEXARGA24");
+  WiFi.softAP("SETUP_REMOTE_1", "LEXARGA24");
   
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/html", webHTML);

@@ -30,10 +30,10 @@ uint8_t button[15] = {33,   18,   16,   17,   4,     15,     13,     12,       2
                   // "L3", "R3", "L2", "L1", "UP", "LEFT", "DOWN", "RIGHT", "SQUARE", "CROSS", "ROUND", "TRIANGLE", "R2", "R1", SW
                   //   0    1     2     3     4       5       6       7         8         9       10        11       12    13   14
 
-uint8_t joy1XPin = 34; 
-uint8_t joy1YPin = 35; 
-uint8_t joy2XPin = 36; 
-uint8_t joy3YPin = 39; 
+uint8_t joy2YPin = 34; 
+uint8_t joy2XPin = 35; 
+uint8_t joy1YPin = 36; 
+uint8_t joy1XPin = 39; 
 
 const int NUM_SAMPLES = 3;
 static int joy1XBuffer[NUM_SAMPLES] = {0}, joy1YBuffer[NUM_SAMPLES] = {0};
