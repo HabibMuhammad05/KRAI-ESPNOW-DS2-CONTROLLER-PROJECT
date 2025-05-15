@@ -1,3 +1,11 @@
+/*---------------------------------------------------------------------------------------------------------*/
+/*---------------------------------Pinout New PCB Update IBT Motor Driver test-----------------------------*/
+/*--------------------------------------Source Code by LEXARGA-24 TEAM-------------------------------------*/
+/*-----------------------------------Modified & Adapted by LEXARGA-24 TEAM---------------------------------*/
+/*----------------------------------------------------V2.0-------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+/*------------------------------------LAST UPDATE AT 11:40:00, 27 MAY 25-----------------------------------*/
+
 // Define DEBUG to enable debugging; comment it out to disable
 #define DEBUG
 
@@ -14,22 +22,31 @@
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
-uint8_t pwm1 = 8;
+uint8_t pwm1 = 4;
 
 //idc 2 connector, FRONT RIGHT
 uint8_t FR_A = 43;
 uint8_t FR_B = 45;
-uint8_t pwm2 = 9;
+uint8_t pwm2 = 5;
 
 //idc 3 connector, REAR LEFT
 uint8_t RL_A = 41;
 uint8_t RL_B = 39;
-uint8_t pwm3 = 4;
+uint8_t pwm3 = 6;
 
 //idc 4 connector, REAR RIGHT
 uint8_t RR_A = 35;
 uint8_t RR_B = 37;
-uint8_t pwm4 = 5;
+uint8_t pwm4 = 7;
+
+//idc 5 connector, AUX
+uint8_t M5_A = 33;
+uint8_t M5_B = 31;
+uint8_t pwm5 = 8;
+//idc 6 connector, AUX2
+uint8_t M6_A = 29;
+uint8_t M6_B = 27;
+uint8_t pwm6 = 9;
 
 uint8_t pwmVal = 30;
 
@@ -47,6 +64,13 @@ void setup() {
   pinMode(pwm4, OUTPUT);
   pinMode(RR_A, OUTPUT);
   pinMode(RR_B, OUTPUT);
+  
+  pinMode(pwm5, OUTPUT);
+  pinMode(M5_A, OUTPUT);
+  pinMode(M5_B, OUTPUT);
+  pinMode(pwm6, OUTPUT);
+  pinMode(M6_A, OUTPUT);
+  pinMode(M6_B, OUTPUT);
 
 }
 

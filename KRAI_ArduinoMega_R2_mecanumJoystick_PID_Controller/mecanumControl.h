@@ -7,33 +7,33 @@
 //idc 1 connector, FRONT LEFT
 uint8_t FL_A = 49;
 uint8_t FL_B = 47;
-uint8_t pwm1 = 8;
+uint8_t pwm1 = 4;
 
 //idc 2 connector, FRONT RIGHT
 uint8_t FR_A = 43;
 uint8_t FR_B = 45;
-uint8_t pwm2 = 9;
+uint8_t pwm2 = 5;
 
 //idc 3 connector, REAR LEFT
 uint8_t RL_A = 41;
 uint8_t RL_B = 39;
-uint8_t pwm3 = 4;
+uint8_t pwm3 = 6;
 
 //idc 4 connector, REAR RIGHT
 uint8_t RR_A = 35;
 uint8_t RR_B = 37;
-uint8_t pwm4 = 5;
+uint8_t pwm4 = 7;
 
 
 //========================================= ENCODER PINS =========================================//
-uint8_t ENCA_FL = 21;
-uint8_t ENCB_FL = 28;
-uint8_t ENCA_FR = 20;
-uint8_t ENCB_FR = 26;
-uint8_t ENCA_RL = 3;
-uint8_t ENCB_RL = 24;
-uint8_t ENCA_RR = 2;
-uint8_t ENCB_RR = 22;
+uint8_t ENCA_FL = 20;
+uint8_t ENCB_FL = 22;
+uint8_t ENCA_FR = 21;
+uint8_t ENCB_FR = 24;
+uint8_t ENCA_RL = 2;
+uint8_t ENCB_RL = 26;
+uint8_t ENCA_RR = 3;
+uint8_t ENCB_RR = 28;
 
 
 //=================================== INSERT PINS INTO AN ARRAY ==================================//
@@ -185,13 +185,13 @@ int mapJoystick(int input, int negFrom, int posFrom, int negTo, int posTo) {
 
 //============================ MECANUM WHEEL KINEMATICS CALCULATION=================================//
 void calcMecanum() { 
-  int x1Map = mapJoystick(recvData.joyData[0], -1855, 2244, 255, -255);
-  int y1Map = mapJoystick(recvData.joyData[1], -1744, 2355, -255, 255);
-  int x2Map = mapJoystick(recvData.joyData[2], -1743, 2331, 255, -255);
+  joystickX1 = mapJoystick(recvData.joyData[0], -4095, 4095, 255, -255);
+  joystickY1 = mapJoystick(recvData.joyData[1], -4095, 4095, 255, -255);
+  joystickX2 = mapJoystick(recvData.joyData[2], -4095, 4095, 255, -255);
   
-  joystickX1 = x1Map; // First joystick X-axis (left-right)
-  joystickY1 = map(y1Map, -255, 255, 255, -255); // First joystick Y-axis (forward-backward)
-  joystickX2 = x2Map; // Second joystick X-axis (rotation)
+//  joystickX1 = x1Map; // First joystick X-axis (left-right)
+//  joystickY1 = map(y1Map, -255, 255, 255, -255); // First joystick Y-axis (forward-backward)
+//  joystickX2 = x2Map; // Second joystick X-axis (rotation)
 
   DEBUG_PRINT("x1: "); DEBUG_PRINT(joystickX1);
   DEBUG_PRINT("--y1: "); DEBUG_PRINT(joystickY1);

@@ -9,7 +9,7 @@
 /*------------------------------------LAST UPDATE AT 09:35:00, 16 JAN 25-----------------------------------*/
 
 // Define DEBUG to enable debugging; comment it out to disable
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
   #define DEBUG_PRINT(...) Serial.print(__VA_ARGS__)
@@ -27,8 +27,8 @@
 bool R2lastState = true;
 bool L2lastState = true;
 
-uint8_t relay1 = 30;
-uint8_t relay2 = 32;
+uint8_t relay1 = 46;
+uint8_t relay2 = 48;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
