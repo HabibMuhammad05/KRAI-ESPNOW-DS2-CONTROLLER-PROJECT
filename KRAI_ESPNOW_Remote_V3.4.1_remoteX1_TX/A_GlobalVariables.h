@@ -14,8 +14,9 @@ float frequencyHz = 0.0;
 unsigned long startTime;
 
 //============================EDIT THIS TO CHANGE THE RX MAC ADDRESS==================================//
-uint8_t broadcastAddress[] = {0xE8, 0x6B, 0xEA, 0xD4, 0xA5, 0x84}; //esp32 ext antenna
+//uint8_t broadcastAddress[] = {0xE8, 0x6B, 0xEA, 0xD4, 0xA5, 0x84}; //esp32 ext antenna
 //uint8_t broadcastAddress[] = {0x8C, 0x4F, 0x00, 0x3C, 0x91, 0x7C}; // esp32 v1 microUSB
+uint8_t broadcastAddress[] = {0x80, 0x7D, 0x3A, 0xEA, 0xB1, 0x98}; // esp32 ext ant R1
 
 //=========================VARS TO SENT BY ESPNOW - MUST MATCH WITH RX================================//
 typedef struct struct_message {
