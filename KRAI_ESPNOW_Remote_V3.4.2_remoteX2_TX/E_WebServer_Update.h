@@ -85,7 +85,7 @@ const char webHTML[] PROGMEM = R"rawliteral(
                        <a class='submit' href='http://192.168.4.1/update'> OPEN OTA UPDATER </a>
                        <h5><a href='http://192.168.4.1/update'>© ESPNOW Remote</a></h5>
                        <h5>
-                         <a href='https://www.instagram.com/Hab_mz'>@KRAI - LEXARGA24 TEAM</a>
+                         <a href='https://www.instagram.com/lexarga_team'>@KRAI - LEXARGA24 TEAM</a>
                        </h5>
                     </td>
                 </tr> 
@@ -107,4 +107,35 @@ void StartOTA(){
   AsyncElegantOTA.begin(&server);    // Start ElegantOTA
   server.begin();
 }
-    
+
+
+// ============================================= EEPROM ======================================
+void write_EEPROM(int pos1, int pos2,String strText){
+  int pj_strText=strText.length()+1;
+  char stringIn[pj_strText];
+  strText.toCharArray(stringIn,pj_strText);
+
+  int j=-1;
+  for(int i=pos1; i<pos2+1; i++){
+    j++;
+    if (i<pos1+pj_strText )  {
+      EEPROM.write(i, stringIn[j]);
+      EEPROM.commit();
+    }else{
+      EEPROM.write(i, '\0');
+      EEPROM.commit();
+    }
+  }
+}
+
+String read_EEPROM(int pos1,int pos2){ 
+  int i;
+  char c;
+  String temp="";
+  for (i=pos1; i<pos2; i++){
+    c=EEPROM.read(i);
+    temp=temp+String(c);
+  }
+  temp=temp+'\0';
+  return temp;
+}

@@ -60,12 +60,14 @@ void loop() {
   if (settingMode){
     ledBlink(500); 
   }else{
+    startTime = millis();
     joystickRead();
     dataSent();
     OledDisplaySend();
     ledBlink(1000);
     batteryCheck();
-    delay(10);
+//    delay(10);
+    checkLatency();
   }
 }
 
@@ -79,7 +81,7 @@ void batteryCheck(){
 //    batteryPercentage = (batteryVoltage - minVoltage) / (maxVoltage - minVoltage) * 100;
 //    batteryPercentage = constrain(batteryPercentage, 0, 100);
     
-    DEBUG_PRINT("Battery Voltage: "); DEBUG_PRINT(batteryVoltage, 2); 
+    DEBUG_PRINT("                                             Battery Voltage: "); DEBUG_PRINT(batteryVoltage, 2); 
     DEBUG_PRINT(" V, Percentage: "); DEBUG_PRINT(batteryPercentage, 0); 
     DEBUG_PRINTLN(" %");
   }
@@ -92,4 +94,12 @@ void ledBlink(int wait){
     blinkMillis=millis();
     digitalWrite(5, !digitalRead(5));    
   }
+}
+
+void checkLatency(){  
+  unsigned long endTime = millis(); 
+  periodMs = endTime - startTime;
+  frequencyHz = 1000.0 / periodMs;
+  DEBUG_PRINT("--F : "); DEBUG_PRINT(frequencyHz); DEBUG_PRINT(" Hz");
+  DEBUG_PRINT("--T : ");   DEBUG_PRINT(periodMs); DEBUG_PRINTLN(" mS");
 }

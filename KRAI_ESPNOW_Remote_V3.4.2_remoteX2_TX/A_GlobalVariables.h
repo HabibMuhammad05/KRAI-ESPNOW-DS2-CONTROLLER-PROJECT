@@ -9,6 +9,9 @@
 #include <U8g2lib.h>
 
 bool settingMode;
+unsigned long periodMs;
+float frequencyHz = 0.0;
+unsigned long startTime;
 
 //============================EDIT THIS TO CHANGE THE RX MAC ADDRESS==================================//
 uint8_t broadcastAddress[] = {0xE8, 0x6B, 0xEA, 0xD4, 0xA5, 0x84}; //esp32 ext antenna
@@ -26,10 +29,11 @@ struct_message sendData; //struct for sending data.
 uint8_t button[15] = {33,   18,   16,   17,   4,     15,     13,     12,       25,      26,      27,        14,      19,   23,  2}; 
                   // "L3", "R3", "L2", "L1", "UP", "LEFT", "DOWN", "RIGHT", "SQUARE", "CROSS", "ROUND", "TRIANGLE", "R2", "R1", SW
                   //   0    1     2     3     4       5       6       7         8         9       10        11       12    13   14
-uint8_t joy1XPin = 39; 
-uint8_t joy1YPin = 36; 
-uint8_t joy2XPin = 35; 
-uint8_t joy2YPin = 34; 
+
+uint8_t joy1XPin = 34; 
+uint8_t joy1YPin = 35; 
+uint8_t joy2XPin = 36; 
+uint8_t joy2YPin = 39; 
 
 const int NUM_SAMPLES = 3;
 static int joy1XBuffer[NUM_SAMPLES] = {0}, joy1YBuffer[NUM_SAMPLES] = {0};
@@ -46,7 +50,7 @@ const int joy1YBox = 47;
 const int joy2XBox = 80;
 const int joy2YBox = 47;
 
-const int centerThreshold = 300;
+const int centerThreshold = 200;
 
 //==============================VARS FOR BATT VOLTAGE MEASUREMENT=======================================//
 uint8_t voltPin = 32; 

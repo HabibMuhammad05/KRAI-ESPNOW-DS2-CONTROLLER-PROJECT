@@ -13,7 +13,6 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
     DEBUG_PRINT("Delivery Success----");
   }else{
     DEBUG_PRINT("Delivery Fail----");
-    delay(40);
   }
 }
 
@@ -55,15 +54,18 @@ void dataSent() {
     }
 
     if (isSending) { 
-        connectOk = (connectOk ? 2 : false);
-        esp_err_t result = esp_now_send(broadcastAddress, (uint8_t*)&sendData, sizeof(sendData));
-        if (result == ESP_OK) {
-            DEBUG_PRINTLN("Sent with success!");
-        } else {
-            DEBUG_PRINTLN("Error sending the data.");
-            delay(40);
+        static uint32_t pM;
+        uint32_t cM = millis();
+        if (cM - pM > 8) {
+            esp_err_t result = esp_now_send(broadcastAddress, (uint8_t*)&sendData, sizeof(sendData));
+            connectOk = (connectOk ? 2 : false);
+            if (result == ESP_OK) DEBUG_PRINTLN("Sent with success!");
+            else DEBUG_PRINTLN("Error sending the data.");
+            pM = cM;   
         }
-    } else {
+        
+    } 
+    else {
         DEBUG_PRINTLN("No activity, no data sent.");
     }
 }
