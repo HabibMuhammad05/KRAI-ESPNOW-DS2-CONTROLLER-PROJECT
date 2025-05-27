@@ -133,7 +133,7 @@ void OledDisplaySend(){
   u8g2.clearBuffer();
   u8g2.drawXBM(0, 0, 128, 64, mainScreen);
   u8g2.setFont(u8g2_font_t0_18b_tr);
-  switch(connectOk){
+  switch(connStat){
     case 0 : u8g2.drawStr(1, 12, "ERROR");  break;
     case 1 : u8g2.drawStr(1, 12, "STANDBY");break;
     case 2 : u8g2.drawStr(1, 12, "CONN OK");break;

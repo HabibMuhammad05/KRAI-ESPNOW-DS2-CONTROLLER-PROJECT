@@ -37,7 +37,7 @@ const char webHTML[] PROGMEM = R"rawliteral(
         padding: 10px;
         text-align: center;
     }
-    .submit{
+    .submitBut{
         background-color: #4CAF50;
         color: #fff;
         padding: 10px 20px;
@@ -83,7 +83,7 @@ const char webHTML[] PROGMEM = R"rawliteral(
                     <td colspan='5'> 
                        <b>Setting MAC Address RX: </b>
                        <input type='text' name='text1' value='"+T1+"' maxlength='50'> 
-                       <input class='submitButton' type='submit' name='Save' value='Submit'>
+                       <input class='submitBut' type='submit' name='Save' value='Submit'>
                     </td>
                 </tr> 
                 <tr> 

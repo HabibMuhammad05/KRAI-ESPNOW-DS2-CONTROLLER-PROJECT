@@ -33,7 +33,7 @@ uint8_t button[15] = {33,   18,   16,   17,   4,     15,     13,     12,       2
 uint8_t joy1XPin = 34; 
 uint8_t joy1YPin = 35; 
 uint8_t joy2XPin = 36; 
-uint8_t joy3YPin = 39; 
+uint8_t joy2YPin = 39; 
 
 const int NUM_SAMPLES = 3;
 static int joy1XBuffer[NUM_SAMPLES] = {0}, joy1YBuffer[NUM_SAMPLES] = {0};
@@ -50,7 +50,7 @@ const int joy1YBox = 47;
 const int joy2XBox = 80;
 const int joy2YBox = 47;
 
-const int centerThreshold = 200;
+const int centerThreshold = 500;
 
 //==============================VARS FOR BATT VOLTAGE MEASUREMENT=======================================//
 uint8_t voltPin = 32; 
