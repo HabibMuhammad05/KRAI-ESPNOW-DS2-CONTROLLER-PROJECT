@@ -50,7 +50,7 @@ const int joy1YBox = 47;
 const int joy2XBox = 80;
 const int joy2YBox = 47;
 
-const int centerThreshold = 200;
+const int centerThreshold = 515;
 
 //==============================VARS FOR BATT VOLTAGE MEASUREMENT=======================================//
 uint8_t voltPin = 32; 

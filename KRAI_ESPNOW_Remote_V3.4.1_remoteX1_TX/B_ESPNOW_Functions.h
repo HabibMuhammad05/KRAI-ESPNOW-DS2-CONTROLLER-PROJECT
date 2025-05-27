@@ -1,5 +1,6 @@
 //========================================ESPNOW DATA SENDING FUNCTIONS======================================//
-uint8_t connectOk = false;
+bool connectOk = false;
+uint8_t connStat = false;
 unsigned long lastActiveTime = 0;      
 const unsigned long timeout = 1000;    
 bool isSending = false; 
@@ -58,7 +59,7 @@ void dataSent() {
         uint32_t cM = millis();
         if (cM - pM > 30) {
             esp_err_t result = esp_now_send(broadcastAddress, (uint8_t*)&sendData, sizeof(sendData));
-            connectOk = (connectOk ? 2 : false);
+            connStat = (connectOk ? 2 : false);
             if (result == ESP_OK) DEBUG_PRINTLN("Sent with success!");
             else DEBUG_PRINTLN("Error sending the data.");
             pM = cM;   

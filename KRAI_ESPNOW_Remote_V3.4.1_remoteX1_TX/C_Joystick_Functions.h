@@ -43,15 +43,26 @@ void joystickRead(){
   sendData.joyData[2] = updateAverage(joy2XSum, joy2XBuffer, joy2XIndex, analogRead(joy2XPin) - joy2XCenter);
   sendData.joyData[3] = updateAverage(joy2YSum, joy2YBuffer, joy2YIndex, analogRead(joy2YPin) - joy2YCenter);
 
+  sendData.joyData[0] = map(sendData.joyData[0], -1872, 2223, -4095, 4095);
+  sendData.joyData[1] = map(sendData.joyData[1], -1759, 2236, -4095, 4095);
+  sendData.joyData[2] = map(sendData.joyData[2], -1775, 2320, -4095, 4095);
+  sendData.joyData[3] = map(sendData.joyData[3], -1775, 2320, -4095, 4095);
+  
+  sendData.joyData[0] = constrain(sendData.joyData[0], -4095, 4095);
+  sendData.joyData[1] = constrain(sendData.joyData[1], -4095, 4095);
+  sendData.joyData[2] = constrain(sendData.joyData[2], -4095, 4095);
+  sendData.joyData[3] = constrain(sendData.joyData[3], -4095, 4095);
+  
   sendData.joyData[0] = abs(sendData.joyData[0]) > centerThreshold ? sendData.joyData[0] : 0;
   sendData.joyData[1] = abs(sendData.joyData[1]) > centerThreshold ? sendData.joyData[1] : 0;
   sendData.joyData[2] = abs(sendData.joyData[2]) > centerThreshold ? sendData.joyData[2] : 0;
   sendData.joyData[3] = abs(sendData.joyData[3]) > centerThreshold ? sendData.joyData[3] : 0;
   
-  joy1XPos = map(sendData.joyData[0], -2048, 2048, joy1XBox - boxSize / 2, joy1XBox + boxSize / 2);
-  joy1YPos = map(sendData.joyData[1], -2048, 2048, joy1YBox - boxSize / 2, joy1YBox + boxSize / 2);
-  joy2XPos = map(sendData.joyData[2], -2048, 2048, joy2XBox - boxSize / 2, joy2XBox + boxSize / 2);
-  joy2YPos = map(sendData.joyData[3], -2048, 2048, joy2YBox - boxSize / 2, joy2YBox + boxSize / 2);
+  joy1XPos = map(sendData.joyData[0], -4095, 4095, joy1XBox - boxSize / 2, joy1XBox + boxSize / 2);
+  joy1YPos = map(sendData.joyData[1], -4095, 4095, joy1YBox - boxSize / 2, joy1YBox + boxSize / 2);
+  joy2XPos = map(sendData.joyData[2], -4095, 4095, joy2XBox - boxSize / 2, joy2XBox + boxSize / 2);
+  joy2YPos = map(sendData.joyData[3], -4095, 4095, joy2YBox - boxSize / 2, joy2YBox + boxSize / 2);
+  
 }  
 
 //    sendData.joyData[0] = analogRead(joy1XPin) - joy1XCenter;
