@@ -23,6 +23,34 @@ typedef struct struct_message {
 struct_message incomingData; // struct to store received data
 uint8_t storedMac;
 
+// ======== ADD BATTERY FUNCTION ========
+const float R1 = 10000.0;
+const float R2 = 100000.0;
+const int BATTERY_PIN0 = 36;
+
+float readBatteryVoltage0() {
+  int raw = analogRead(BATTERY_PIN0);
+  float voltage = raw * (3.3 / 4095.0);
+  return voltage * ((R1 + R2) / R2);
+}
+const float R3 = 10000.0;
+const float R4 = 22000.0;
+const int BATTERY_PIN1 = 39;
+
+float readBatteryVoltage1() {
+  int raw = analogRead(BATTERY_PIN1);
+  float voltage = raw * (3.3 / 4095.0);
+  return voltage * ((R3 + R4) / R4);
+}
+const float R5 = 22000.0;
+const float R6 = 100000.0;
+const int BATTERY_PIN2 = 34;
+
+float readBatteryVoltage2() {
+  int raw = analogRead(BATTERY_PIN2);
+  float voltage = raw * (3.3 / 4095.0);
+  return voltage * ((R5 + R6) / R6);
+}
 // ======== ADD FUNCTION DECLARATION ========
 float readBatteryVoltage0();
 float readBatteryVoltage1();
