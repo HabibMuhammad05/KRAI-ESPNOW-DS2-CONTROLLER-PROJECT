@@ -36,6 +36,11 @@ void setup() {
     pinMode(BATTERY_PIN0, INPUT);
     pinMode(BATTERY_PIN1, INPUT);
     pinMode(BATTERY_PIN2, INPUT);
+    pinMode(RPM_SENSOR_PIN1, INPUT_PULLUP);
+    pinMode(RPM_SENSOR_PIN2, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(RPM_SENSOR_PIN1), pulseInterrupt1, FALLING);
+    attachInterrupt(digitalPinToInterrupt(RPM_SENSOR_PIN2), pulseInterrupt2, FALLING);
+    DEBUG_PRINTLN("RPM sensors initialized");
     EEPROM.begin(256);
     reload_EEPROM();
     
