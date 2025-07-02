@@ -51,10 +51,56 @@ float readBatteryVoltage2() {
   float voltage = raw * (3.3 / 4095.0);
   return voltage * ((R5 + R6) / R6);
 }
+
+// ======== RPM SENSOR CONFIGURATION ========
+#define RPM_SENSOR_PIN1 18  // Pin sensor RPM motor 1
+#define RPM_SENSOR_PIN2 19  // Pin sensor RPM motor 2
+#define HOLES_PER_DISK 20   // Jumlah lubang pada disk
+
+// Variabel untuk perhitungan RPM
+volatile unsigned long pulseCount1 = 0;
+volatile unsigned long pulseCount2 = 0;
+unsigned long lastPulseTime1 = 0;
+unsigned long lastPulseTime2 = 0;
+const unsigned long DEBOUNCE_TIME = 5; // Waktu debounce (ms)
+
+// Mutex untuk akses aman ke variabel pulseCount
+static portMUX_TYPE mux1 = portMUX_INITIALIZER_UNLOCKED;
+static portMUX_TYPE mux2 = portMUX_INITIALIZER_UNLOCKED;
+
+// Interrupt handler untuk sensor RPM
+void IRAM_ATTR pulseInterrupt1() {
+    static unsigned long lastInterruptTime1 = 0;
+    unsigned long currentTime = millis();
+    
+    if (currentTime - lastInterruptTime1 > DEBOUNCE_TIME) {
+        portENTER_CRITICAL_ISR(&mux1);
+        pulseCount1++;
+        lastPulseTime1 = currentTime;
+        portEXIT_CRITICAL_ISR(&mux1);
+        lastInterruptTime1 = currentTime;
+    }
+}
+
+void IRAM_ATTR pulseInterrupt2() {
+    static unsigned long lastInterruptTime2 = 0;
+    unsigned long currentTime = millis();
+    
+    if (currentTime - lastInterruptTime2 > DEBOUNCE_TIME) {
+        portENTER_CRITICAL_ISR(&mux2);
+        pulseCount2++;
+        lastPulseTime2 = currentTime;
+        portEXIT_CRITICAL_ISR(&mux2);
+        lastInterruptTime2 = currentTime;
+    }
+}
+
 // ======== ADD FUNCTION DECLARATION ========
 float readBatteryVoltage0();
 float readBatteryVoltage1();
 float readBatteryVoltage2();
+
+
 //========================================ESPNOW DATA RECEIVING FUNCTIONS======================================//
 
 
@@ -104,11 +150,52 @@ void startComms(){
 
 void dataSent() {  
     static uint32_t pM;
+    static unsigned long lastRPMTime = 0;
+    const unsigned long RPMInterval = 100; // Interval pembacaan RPM (ms)
     uint32_t cM = millis();
-    String dataStr = String();
+
+        // Hitung RPM setiap interval
+    if (cM - lastRPMTime >= RPMInterval) {
+        unsigned long count1, count2;
+        unsigned long timeDiff1 = 0, timeDiff2 = 0;
+        
+        // Baca dan reset pulseCount dengan aman
+        portENTER_CRITICAL(&mux1);
+        count1 = pulseCount1;
+        pulseCount1 = 0;
+        if (lastPulseTime1 > 0) {
+            timeDiff1 = cM - lastPulseTime1;
+        }
+        portEXIT_CRITICAL(&mux1);
+        
+        portENTER_CRITICAL(&mux2);
+        count2 = pulseCount2;
+        pulseCount2 = 0;
+        if (lastPulseTime2 > 0) {
+            timeDiff2 = cM - lastPulseTime2;
+        }
+        portEXIT_CRITICAL(&mux2);
+        
+        // Hitung RPM berdasarkan frekuensi
+        if (timeDiff1 > 0) {
+            float frequency1 = (count1 * 1000.0) / timeDiff1;
+            sendData.rpmData[0] = (frequency1 * 60) / HOLES_PER_DISK;
+        } else {
+            sendData.rpmData[0] = 0;
+        }
+        
+        if (timeDiff2 > 0) {
+            float frequency2 = (count2 * 1000.0) / timeDiff2;
+            sendData.rpmData[1] = (frequency2 * 60) / HOLES_PER_DISK;
+        } else {
+            sendData.rpmData[1] = 0;
+        }
+        
+        lastRPMTime = cM;
+    }
+    
     if (cM - pM > 2000) {
-       sendData.rpmData[0] = random(0, 40000);
-       sendData.rpmData[1] = random(0, 40000);
+       String dataStr = String();
        sendData.voltData[0] = readBatteryVoltage0();
        sendData.voltData[1] = readBatteryVoltage1();
        sendData.voltData[2] = readBatteryVoltage2();
@@ -184,6 +271,15 @@ void failSafeCheck(struct_message &recvData) {
         }
     }
 }
+
+
+
+
+
+
+
+
+
 //String macToString(const uint8_t *mac) {
 //  char macChr[18];
 //  sprintf(macChr, "%02X:%02X:%02X:%02X:%02X:%02X",
