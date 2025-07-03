@@ -5,7 +5,7 @@
 /*---------------------------------------------------V3.6.1------------------------------------------------*/
 /*------------------------------------Specified for Remote 1(gen 1 remote)---------------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
-/*------------------------------------LAST UPDATE AT 14:40:00, 26 JUN 25-----------------------------------*/
+/*------------------------------------LAST UPDATE AT 02:37:00, 2 JUL 25-----------------------------------*/
 
 // Define DEBUG to enable debugging; comment it out to disable
 //#define DEBUG
@@ -81,7 +81,7 @@ void loop() {
 }
 
 //===========================================Voltage reading FUNC===============================================//
-float readings[20]; 
+float readings[15]; 
 uint8_t readIndex = 0;
 uint8_t totalSamples = 0;
 unsigned long lastOutputTime = 0;
@@ -94,11 +94,11 @@ void batteryCheck() {
     float newVoltage = (vOut / voltageDividerFactor) * calibrationFactor;
 
     readings[readIndex] = newVoltage;
-    readIndex = (readIndex + 1) % 20;
-    if (totalSamples < 20) totalSamples++;
+    readIndex = (readIndex + 1) % 15;
+    if (totalSamples < 15) totalSamples++;
   }
 
-  if ((millis() - lastOutputTime >= 2000)) {
+  if ((millis() - lastOutputTime >= 1500)) {
     lastOutputTime = millis();
     float sum = 0;
     for (int i = 0; i < totalSamples; i++) {

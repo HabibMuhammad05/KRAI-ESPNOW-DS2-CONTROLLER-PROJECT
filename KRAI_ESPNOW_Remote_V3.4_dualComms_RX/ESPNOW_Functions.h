@@ -13,7 +13,7 @@ typedef struct DatatoSend {
   float voltData[3];
   int pressureData;
 } DatatoSend;
-DatatoSend sendData; //struct to store sent data.
+DatatoSend sendData; //struct to store sent data. sendData.rpmData[0]
 
 typedef struct struct_message {
     bool stat[15];
@@ -75,12 +75,12 @@ void dataSent() {
     static uint32_t pM;
     uint32_t cM = millis();
     String dataStr = String();
-    if (cM - pM > 2000) {
-       sendData.rpmData[0] = random(0, 40000);
-       sendData.rpmData[1] = random(0, 40000);
-       sendData.voltData[0] = random(9, 12);
-       sendData.voltData[1] = random(12, 16);
-       sendData.voltData[2] = random(18, 24);
+    if (cM - pM > 1500) {
+//       sendData.rpmData[0] = random(0, 40000);
+//       sendData.rpmData[1] = random(0, 40000);
+//       sendData.voltData[0] = random(9, 12);
+//       sendData.voltData[1] = random(12, 16);
+//       sendData.voltData[2] = random(18, 24);
        sendData.pressureData = random(0, 600);
 
        for (int i = 0; i < 2; i++) {  dataStr += String(sendData.rpmData[i]) + ","; }
