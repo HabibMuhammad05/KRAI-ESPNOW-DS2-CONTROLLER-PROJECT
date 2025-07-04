@@ -23,6 +23,9 @@ typedef struct struct_message {
 } struct_message;
 struct_message incomingData; // struct to store received data
 uint8_t storedMac;
+bool connectOk;
+bool failsafeTriggered = false;
+bool encoderOn;
 
 //========================================ESPNOW DATA RECEIVING FUNCTIONS======================================//
 
@@ -49,7 +52,7 @@ void OnDataRecv(const uint8_t *mac, const uint8_t *incomingLocal, int len) {
 
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {  
 //  DEBUG_PRINT("----Last Packet Send Status:");
-  bool connectOk = (status == ESP_NOW_SEND_SUCCESS);
+  connectOk = (status == ESP_NOW_SEND_SUCCESS);
   if(connectOk){
     DEBUG_PRINTLN("Delivery Success");
   }else{
@@ -75,7 +78,7 @@ void dataSent() {
     static uint32_t pM;
     uint32_t cM = millis();
     String dataStr = String();
-    if (cM - pM > 1500) {
+    if ((cM - pM > 1500) || encoderOn) {
 //       sendData.rpmData[0] = random(0, 40000);
 //       sendData.rpmData[1] = random(0, 40000);
 //       sendData.voltData[0] = random(9, 12);
@@ -88,8 +91,9 @@ void dataSent() {
        dataStr += String(sendData.pressureData) + " - ";
        DEBUG_PRINT(dataStr);
        esp_err_t result = esp_now_send(broadcastAddress[incomingData.remoteIndex], (uint8_t*)&sendData, sizeof(sendData));
-       if (result == ESP_OK) DEBUG_PRINT("SENT SUCCESS - ");
-       else DEBUG_PRINT("ERROR - "); 
+       if (result == ESP_OK)  DEBUG_PRINT("SENT SUCCESS - ");
+       else  DEBUG_PRINT("ERROR - ");
+       
        DEBUG_PRINTLN(storedMac); 
 //       String macStr = macToString(broadcastAddress[incomingData.remoteIndex]);
 //       DEBUG_PRINTLN(macStr);
@@ -100,7 +104,6 @@ void dataSent() {
 void failSafeCheck(struct_message &recvData) {
     static struct_message lastReceivedData;
     static unsigned long lastReceiveTime = 0;
-    static bool failsafeTriggered = false;
 
     bool dataChanged = false;
     for (int i = 0; i < 4; i++) {

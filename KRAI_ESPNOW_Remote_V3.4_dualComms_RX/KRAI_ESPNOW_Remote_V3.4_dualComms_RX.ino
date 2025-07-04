@@ -21,14 +21,14 @@
 
 // Define ROBOT1 before uploading it to Robot 1;
 // Comment it if uploading this code to robot 2; 
-//#define ROBOT1
+#define ROBOT1
 
 
 void check_EEPROM();
 
 #include "ESPNOW_Functions.h"
 #include "EEPROM_Functions.h"
-#include "BatteryEncoder_Functions.h"
+#include "BatteryEncoderLed_Functions.h"
 
 #define UART2_RX 16
 #define UART2_TX 17
@@ -40,6 +40,17 @@ void setup(){
     pinMode(pin3S, INPUT);
     pinMode(pin4S, INPUT);
     pinMode(pin6S, INPUT);
+    pinMode(encPin1, INPUT); 
+    pinMode(encPin2, INPUT);
+    attachInterrupt(digitalPinToInterrupt(encPin1), isr1, RISING);
+    attachInterrupt(digitalPinToInterrupt(encPin2), isr2, RISING);
+
+    pinMode(rRelay, OUTPUT);
+    pinMode(gRelay, OUTPUT);
+    pinMode(bRelay, OUTPUT);
+    digitalWrite(rRelay, HIGH);
+    digitalWrite(gRelay, HIGH);
+    digitalWrite(bRelay, HIGH);
     
     EEPROM.begin(256);
     reload_EEPROM();
@@ -56,4 +67,6 @@ void loop(){
     batteryRead();
     dataSent();
     failSafeCheck(incomingData);
+    handleEncoders();
+    handleLED();
 }
