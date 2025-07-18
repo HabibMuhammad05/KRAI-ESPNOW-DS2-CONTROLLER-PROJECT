@@ -5,7 +5,7 @@ uint8_t broadcastAddress[4][6] = {
   {0x80, 0x7D, 0x3A, 0xEA, 0xB1, 0x98}, // esp32 ext ant R1
   {0xE8, 0x6B, 0xEA, 0xD4, 0xA3, 0xA0}, // esp32 v1 microUSB 
   {0x80, 0x7D, 0x3A, 0xB9, 0x1F, 0xB4}, // remote2
-  {0xA4, 0xCF, 0x12, 0x42, 0xAC, 0x50}  // remote39
+  {0xA4, 0xCF, 0x12, 0x42, 0xAC, 0x50}  // remote3
 };
 
 typedef struct DatatoSend {
@@ -78,7 +78,7 @@ void dataSent() {
     static uint32_t pM;
     uint32_t cM = millis();
     String dataStr = String();
-    if ((cM - pM > 1500) || encoderOn) {
+    if ((cM - pM > 1500) || encoderOn ) {
 //       sendData.rpmData[0] = random(0, 40000);
 //       sendData.rpmData[1] = random(0, 40000);
 //       sendData.voltData[0] = random(9, 12);
@@ -125,7 +125,7 @@ void failSafeCheck(struct_message &recvData) {
         lastReceivedData = recvData; 
         failsafeTriggered = false;
     }
-    if (!failsafeTriggered && (millis() - lastReceiveTime >= 1000)) {
+    if (!failsafeTriggered && (millis() - lastReceiveTime >= 2000)) {
         bool joystickMoved = false;
         bool buttonPressed = false;
         for (int i = 0; i < 4; i++) {
