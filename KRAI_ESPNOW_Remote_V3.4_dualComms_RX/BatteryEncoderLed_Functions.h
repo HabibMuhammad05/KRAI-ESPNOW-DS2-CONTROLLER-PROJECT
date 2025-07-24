@@ -54,9 +54,9 @@ void batteryRead(){
 }
 
 // ============================================== ENCODER READING FUNC =====================================
-const byte encPin1 = 25, encPin2 = 26;
+const byte encPin1 = 23, encPin2 = 22;
 const float correction = 3.08;
-const int sampleMs = 250, idleMs = 500, avgCount = 10;
+const int sampleMs = 300, idleMs = 400, avgCount = 10;
 
 struct Encoder {
   volatile unsigned int count = 0;
@@ -98,6 +98,9 @@ void handleEncoders() {
       encoderOn = true;
       DEBUG_PRINT(label[n]); DEBUG_PRINT(": ");
       DEBUG_PRINT(e[n]->rpm, 0);DEBUG_PRINTLN(" RPM");
+    }
+    else{
+      encoderOn = false;
     }
   }
 }
