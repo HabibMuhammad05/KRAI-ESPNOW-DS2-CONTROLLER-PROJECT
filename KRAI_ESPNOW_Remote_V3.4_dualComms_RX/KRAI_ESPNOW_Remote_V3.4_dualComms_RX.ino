@@ -7,7 +7,7 @@
 /*------------------------------------LAST UPDATE AT 11:42:00, 2 JUL 25-----------------------------------*/
 
 // Define DEBUG to enable debugging; comment it out to disable
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
   #define DEBUG_PRINT(...) Serial.print(__VA_ARGS__)
@@ -21,7 +21,7 @@
 
 // Define ROBOT1 before uploading it to Robot 1;
 // Comment it if uploading this code to robot 2; 
-#define ROBOT1
+//#define ROBOT1
 
 
 void check_EEPROM();
@@ -40,10 +40,10 @@ void setup(){
     pinMode(pin3S, INPUT);
     pinMode(pin4S, INPUT);
     pinMode(pin6S, INPUT);
-    pinMode(encPin1, INPUT); 
-    pinMode(encPin2, INPUT);
-    attachInterrupt(digitalPinToInterrupt(encPin1), isr1, RISING);
-    attachInterrupt(digitalPinToInterrupt(encPin2), isr2, RISING);
+    pinMode(encPin1, INPUT_PULLUP); 
+    pinMode(encPin2, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(encPin1), isr1, FALLING);
+    attachInterrupt(digitalPinToInterrupt(encPin2), isr2, FALLING);
 
     pinMode(rRelay, OUTPUT);
     pinMode(gRelay, OUTPUT);
