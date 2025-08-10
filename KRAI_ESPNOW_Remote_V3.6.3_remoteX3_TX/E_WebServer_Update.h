@@ -90,6 +90,10 @@ const char webHTML[] PROGMEM = R"rawliteral(
                         <input type='radio' id='slc3' name='addr' value='2'> ESP32U |   2  | 14:33:5C:02:34:58
                         <br>
                         <input type='radio' id='slc4' name='addr' value='3'> ESP32U |   3  | 14:33:5C:02:49:58
+                        <br>
+                        <input type='radio' id='slc5' name='addr' value='4'> ESP32U |BARU 1| F0:08:D1:C8:52:EC
+                        <br>
+                        <input type='radio' id='slc6' name='addr' value='5'> ESP32U |BARU 2| 0C:B8:15:C2:9A:78
                         <br><br>
                         <input class='submitButton' type='submit' name='Save' value='Submit'>
                     </td>
