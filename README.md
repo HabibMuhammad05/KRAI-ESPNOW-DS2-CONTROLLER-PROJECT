@@ -1,5 +1,6 @@
 # KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
 DS2 controller that's been hijacked with ESP32 and ESP-NOW communication Protocol
+![Controller Picture](https://drive.google.com/file/d/1DrKHLCPvzj1NGt55UtxcBydrcjbyP9GN/view?usp=drive_link)
 
 # documentation:
 Google Drive Link: https://drive.google.com/drive/u/0/folders/1bF-S8_3wirRWgxVvsVIZeP3gbsoaI8Ss
