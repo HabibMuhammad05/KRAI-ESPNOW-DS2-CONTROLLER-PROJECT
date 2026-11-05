@@ -1,8 +1,9 @@
 # KRAI-ESPNOW-DS2-CONTROLLER-PROJECT
 DS2 controller that's been hijacked with ESP32 and ESP-NOW communication Protocol
-![Controller Picture](https://drive.google.com/file/d/1DrKHLCPvzj1NGt55UtxcBydrcjbyP9GN/view?usp=drive_link)
 
-# documentation:
+![Controller Picture](https://github.com/HabibMuhammad05/KRAI-ESPNOW-DS2-CONTROLLER-PROJECT/blob/bc40b6428a818a9ce47f824614310162fffd88e6/KRAI_121024_remote_Testing3.jpg?raw=true)
+
+## documentation:
 Google Drive Link: https://drive.google.com/drive/u/0/folders/1bF-S8_3wirRWgxVvsVIZeP3gbsoaI8Ss
 
 # DS2 controller just used for the button contacts and the housing.
